@@ -2,11 +2,11 @@ from django.http import JsonResponse
 from django.db import connection
 
 def get_prescriptions(request, patient_id):
-    sort_by = request.GET.get("sort_by", "date")  # Default sort by 'date'
-    order = request.GET.get("order", "desc")  # Default order is descending
+    sort_by = request.GET.get("sort_by", "date")
+    order = request.GET.get("order", "desc")
 
     valid_sort_columns = {"date": "p.date", "time": "p.time", "doctor_name": "d.name"}
-    sort_column = valid_sort_columns.get(sort_by, "p.date")  # Fallback to 'date'
+    sort_column = valid_sort_columns.get(sort_by, "p.date")
 
     order_by = "DESC" if order == "desc" else "ASC"
 
@@ -26,8 +26,8 @@ def get_prescriptions(request, patient_id):
     return JsonResponse(prescriptions, safe=False)
 
 def get_prescription_details(request, prescription_id):
-    sort_by = request.GET.get("sort_by", "name")  # Default sort by 'name'
-    order = request.GET.get("order", "asc")  # Default order is ascending
+    sort_by = request.GET.get("sort_by", "name")
+    order = request.GET.get("order", "asc")
 
     valid_sort_columns = {
         "name": "m.name",
@@ -35,7 +35,7 @@ def get_prescription_details(request, prescription_id):
         "expiry_date": "m.expiry_date",
         "price": "m.price",
     }
-    sort_column = valid_sort_columns.get(sort_by, "m.name")  # Fallback to 'name'
+    sort_column = valid_sort_columns.get(sort_by, "m.name")
 
     order_by = "DESC" if order == "desc" else "ASC"
 

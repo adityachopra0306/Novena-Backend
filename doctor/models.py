@@ -18,13 +18,3 @@ class Doctor(models.Model):
 
     def __str__(self):
         return self.name
-
-class Performs(models.Model):
-    doctor = models.ForeignKey("Doctor", on_delete=models.CASCADE, related_name="operations_performed")
-    operation = models.ForeignKey("operation.Operation", on_delete=models.CASCADE, related_name="performing_doctors")
-
-    class Meta:
-        unique_together = ('doctor', 'operation')
-
-    def __str__(self):
-        return f"{self.doctor.name} performs {self.operation.id}"
